@@ -9,5 +9,5 @@ class StorePostDTO extends DataTransferObject
     public string $title;
     public string $content;
     public int $category_id;
-    public $tags;
+    public array $tag_id;
 }

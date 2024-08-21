@@ -12,14 +12,15 @@ use App\Exceptions\PostException\IndexPostException;
 use App\Exceptions\PostException\StorePostException;
 use App\Exceptions\PostException\UpdatePostException;
 use App\Models\Post;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Log;
 
 class PostService implements PostContract
 {
-    public function indexPost(IndexPostDTO $data)
+    public function indexPost(IndexPostDTO $data): LengthAwarePaginator
     {
         try {
-            return Post::with(['categories', 'tags'])->get();
+            return Post::with(['categories', 'tags'])->paginate($data->per_page, ['*'], 'page', $data->page);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             throw new IndexPostException('Что-то пошло не так...', 500);
@@ -36,7 +37,7 @@ class PostService implements PostContract
             $post->category_id = $data->category_id;
             $post->save();
 
-            $post->tags()->sync($data->tags);
+            $post->tags()->sync($data->tag_id);
         } catch (\Exception $e){
             Log::error($e->getMessage());
             throw new StorePostException('Что-то пошло не так...', 500);
@@ -60,7 +61,7 @@ class PostService implements PostContract
             $post->category_id = $data->category_id;
             $post->save();
 
-            $post->tags()->sync($data->tags);
+            $post->tags()->sync($data->tag_id);
         } catch (\Exception $e){
             Log::error($e->getMessage());
             throw new UpdatePostException('Что-то пошло не так...', 500);

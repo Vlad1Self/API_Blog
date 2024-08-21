@@ -23,10 +23,11 @@ class UpdatePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|integer',
-            'title' => 'required|string|max:255',
-            'content' => 'required|string|max:255',
-            'category_id' => ['nullable', 'integer', 'min:1', 'exists:categories,id'],
+            'id' => ['required', 'integer'],
+            'title' => ['required','string','max:255'],
+            'content' => ['required','string','max:255'],
+            'category_id' => ['required', 'integer', 'min:1', 'exists:categories,id'],
+            'tag_id' => ['required', 'array', 'min:1', 'exists:tags,id'],
         ];
     }
 

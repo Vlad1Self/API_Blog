@@ -23,11 +23,10 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'content' => 'required|string|max:255',
+            'title' => ['required', 'string', 'max:255'],
+            'content' => ['required', 'string', 'max:255'],
             'category_id' => ['required', 'integer', 'min:1', 'exists:categories,id'],
-            'tags' => 'nullable|array',
-            'tags.*' => ['nullable', 'integer', 'min:1', 'exists:tags,id'],
+            'tag_id' => ['required', 'array', 'min:1', 'exists:tags,id'],
         ];
     }
 

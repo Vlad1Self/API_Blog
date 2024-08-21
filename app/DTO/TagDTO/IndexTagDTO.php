@@ -6,5 +6,5 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class IndexTagDTO extends DataTransferObject
 {
-    public string $name;
+    public  int $page;
 }

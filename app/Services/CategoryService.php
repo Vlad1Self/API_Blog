@@ -12,14 +12,15 @@ use App\Exceptions\CategoryException\IndexCategoryException;
 use App\Exceptions\CategoryException\StoreCategoryException;
 use App\Exceptions\CategoryException\UpdateCategoryException;
 use App\Models\Category;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Log;
 
 class CategoryService implements CategoryContract
 {
-    public function indexCategory(IndexCategoryDTO $data)
+    public function indexCategory(IndexCategoryDTO $data): LengthAwarePaginator
     {
         try {
-            return Category::all();
+            return Category::paginate(10, ['*'], 'page', $data->page);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             throw new IndexCategoryException('Что-то пошло не так...', 500);

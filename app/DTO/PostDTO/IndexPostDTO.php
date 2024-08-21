@@ -6,6 +6,6 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class IndexPostDTO extends DataTransferObject
 {
-    public string $title;
-    public string $content;
+    public  int $per_page;
+    public  int $page;
 }

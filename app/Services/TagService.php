@@ -12,14 +12,15 @@ use App\Exceptions\TagException\IndexTagException;
 use App\Exceptions\TagException\StoreTagException;
 use App\Exceptions\TagException\UpdateTagException;
 use App\Models\Tag;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Log;
 
 class TagService implements TagContract
 {
-    public function indexTag(IndexTagDTO $data)
+    public function indexTag(IndexTagDTO $data): LengthAwarePaginator
     {
         try {
-            return Tag::all();
+            return Tag::paginate(10, ['*'], 'page', $data->page);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             throw new IndexTagException('Что-то пошло не так...', 500);

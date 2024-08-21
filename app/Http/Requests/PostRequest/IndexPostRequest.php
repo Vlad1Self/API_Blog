@@ -23,9 +23,10 @@ class IndexPostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'content' => 'required|string|max:255',
+            'page' => ['required', 'integer', 'min:1', 'max:500'],
+            'per_page' => ['required', 'integer', 'min:10', 'max:100'],
             'category_id' => ['nullable', 'integer', 'min:1', 'exists:categories,id'],
+            'tag_id' => ['nullable', 'integer', 'min:1', 'exists:tags,id'],
         ];
     }
 

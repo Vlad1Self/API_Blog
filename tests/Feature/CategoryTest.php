@@ -17,11 +17,13 @@ class CategoryTest extends TestCase
         $user = User::factory()->create();
         $category = Category::factory()->create();
 
-        $response = $this->actingAs($user)->get('/api/client/categories?name=' . $category->name);
+        $response = $this->actingAs($user)->get('/api/client/categories?page=1&per_page=10&name=' . $category->name);
 
         $response->assertStatus(200);
-        $response->assertJsonCount(1);
+        $response->assertJsonFragment(['name' => $category->name]);
+
     }
+
 
 
     public function test_store_category()

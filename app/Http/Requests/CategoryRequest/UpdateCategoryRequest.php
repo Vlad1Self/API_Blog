@@ -23,8 +23,8 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'id' => 'required|integer',
+            'id' => ['required', 'integer'],
+            'name' => ['required', 'string', 'max:255'],
         ];
     }
 
