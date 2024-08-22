@@ -20,7 +20,7 @@ class PostService implements PostContract
     public function indexPost(IndexPostDTO $data): LengthAwarePaginator
     {
         try {
-            return Post::with(['categories', 'tags'])->paginate($data->per_page, ['*'], 'page', $data->page);
+            return Post::with(['category', 'tags'])->paginate($data->per_page, ['*'], 'page', $data->page);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             throw new IndexPostException('Что-то пошло не так...', 500);

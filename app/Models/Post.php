@@ -22,7 +22,7 @@ class Post extends Model
         return $this->belongsToMany(Tag::class);
     }
 
-    public function categories(): BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }

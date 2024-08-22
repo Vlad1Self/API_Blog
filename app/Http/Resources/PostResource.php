@@ -18,6 +18,8 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'content' => $this->content,
+            'category' => new CategoryResource($this->category),
+            'tags' => TagResource::collection($this->tags),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
